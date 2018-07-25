@@ -10,6 +10,7 @@
   "package_dir": "{{cookiecutter.package|replace('.', '/')}}",
   "cvs": ["git", "no"],
   "code_quality_check": ["yes", "no"],
+  "jacoco_plugin": ["yes", "no"],
   "_copy_without_render": [
     ".jar",
     "gradlew",

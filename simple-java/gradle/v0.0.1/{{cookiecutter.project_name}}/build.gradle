@@ -5,12 +5,16 @@ plugins {
 }
 {% if cookiecutter.code_quality_check == 'yes' and cookiecutter.cvs == 'git' %}
 apply from: "gradle/install-git-hooks.gradle"
-{% endif %}
-{% if cookiecutter.code_quality_check == 'yes' %}
+{%- endif %}
+{%- if cookiecutter.code_quality_check == 'yes' %}
 apply from: "gradle/pmd.gradle"
 apply from: "gradle/checkstyle.gradle"
 apply from: "gradle/findbugs.gradle"
-{% endif %}
+{%- endif %}
+{%- if cookiecutter.jacoco_plugin == 'yes' %}
+apply from: "gradle/jacoco.gradle"
+{%- endif %}
+
 repositories {
     jcenter()
 }

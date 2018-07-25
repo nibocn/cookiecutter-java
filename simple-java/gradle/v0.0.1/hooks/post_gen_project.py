@@ -11,6 +11,7 @@ PROJECT_DIRECTORY = os.getcwd()
 CODE_QUALITY_CHECK = {% if cookiecutter.code_quality_check == 'yes' %}True{% else %}False{% endif %}
 CODE_QUALITY_CHECK_PATH = os.path.join(PROJECT_DIRECTORY, 'quality')
 CVS = '{{ cookiecutter.cvs }}'
+JACOCO_PLUGIN = '{{ cookiecutter.jacoco_plugin }}'
 
 print('Project Directory: {}\n'.format(PROJECT_DIRECTORY))
 
@@ -54,6 +55,13 @@ def remove_code_quality_file():
     shutil.rmtree(CODE_QUALITY_CHECK_PATH)
 
 
+def remove_jacoco_file():
+  if JACOCO_PLUGIN == 'no':
+    jacoco_file_path = os.path.join(PROJECT_DIRECTORY, 'gradle/jacoco.gradle')
+    print("Removing '{}'...".format(jacoco_file_path))
+    os.remove(jacoco_file_path)
+
+
 def clean_file():
   if not CODE_QUALITY_CHECK or CVS != 'git':
     os.remove(os.path.join(PROJECT_DIRECTORY, 'gradle/install-git-hooks.gradle'))
@@ -63,6 +71,7 @@ def clean_file():
 def main():
   clean_file()
   remove_code_quality_file()
+  remove_jacoco_file()
   init_cvs_repo()
 
 
