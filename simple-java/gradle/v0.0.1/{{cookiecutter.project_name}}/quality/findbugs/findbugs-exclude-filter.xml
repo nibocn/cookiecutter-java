@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+
+    <!-- region Malicious Code Vulnerability（恶意破坏代码） -->
+
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <!-- endregion -->
+
+    <!-- region Bad Practice（不好的实践） -->
+
+    <Match>
+        <Bug pattern="NM_CONFUSING"/>
+    </Match>
+
+    <!-- endregion -->
+
+</FindBugsFilter>

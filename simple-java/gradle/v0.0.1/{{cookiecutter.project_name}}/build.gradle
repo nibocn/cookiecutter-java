@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+}
+{% if cookiecutter.code_quality_check == 'yes' and cookiecutter.cvs == 'git' %}
+apply from: "gradle/install-git-hooks.gradle"
+{% endif %}
+{% if cookiecutter.code_quality_check == 'yes' %}
+apply from: "gradle/pmd.gradle"
+apply from: "gradle/checkstyle.gradle"
+apply from: "gradle/findbugs.gradle"
+{% endif %}
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+
+    testCompile 'junit:junit:4.12'
+}
+
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat 'full'
+    }
+}
+
+idea {
+    module {
+        downloadSources = false
+        downloadJavadoc = false
+    }
+}
+
+eclipse {
+    classpath {
+        downloadSources = false
+    }
+}
