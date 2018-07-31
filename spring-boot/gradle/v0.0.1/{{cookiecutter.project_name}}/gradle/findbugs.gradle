@@ -1,0 +1,34 @@
+apply plugin: 'findbugs'
+
+ext.findbugsDir = "quality/findbugs"
+
+findbugs {
+    includeFilter = file("$findbugsDir/findbugs-include-filter.xml")
+    excludeFilter = file("$findbugsDir/findbugs-exclude-filter.xml")
+    println "FindBugs Version:$toolVersion"
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.withMessages true
+    }
+}
+
+gradle.taskGraph.afterTask { Task task, TaskState state ->
+    if ((task.name == 'findbugsMain' || task.name == 'findbugsTest')) {
+        def findbugsType = task.name == 'findbugsMain' ? 'main' : 'test'
+
+        // region 生成 HTML 报告
+        if (file("$buildDir/reports/findbugs/${findbugsType}.xml").exists()) {
+            def htmlReportPath = "$buildDir/reports/findbugs/${findbugsType}.html"
+            ant.xslt(in: "$buildDir/reports/findbugs/${findbugsType}.xml",
+                style: "$findbugsDir/fancy-hist.xsl",
+                out: htmlReportPath
+            )
+            if (state.failure) {
+                logger.error("Findbugs HTML report: file:///${file(htmlReportPath).canonicalPath.replaceAll("\\\\", "/")}")
+            }
+        }
+        // endregion
+    }
+}

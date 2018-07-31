@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://checkstyle.sourceforge.net/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="severity" value="error"/>
+
+    <!-- 检查文件的长度（行） default max=2000 -->
+    <!--<module name="FileLength">-->
+        <!--<property name="max" value="1000"/>-->
+    <!--</module>-->
+
+    <!-- 使用 System.out.println 等进行打印操作 -->
+    <!--<module name="RegexpMultiline">-->
+        <!--<property name="format" value="System\.(out)|(err)\.print(ln)?\("/>-->
+        <!--<property name="message" value="不能使用 print 或 println 进行打印!"/>-->
+    <!--</module>-->
+
+    <!-- 异常等信息直接使用 printStackTrace 进行打印 -->
+    <!--<module name="RegexpMultiline">-->
+        <!--&lt;!&ndash;<property name="severity" value="error"/>&ndash;&gt;-->
+        <!--<property name="format" value="printStackTrace?\("/>-->
+        <!--<property name="message" value="异常信息不能使用 printStackTrace 直接打印输出"/>-->
+    <!--</module>-->
+
+    <!-- 不允许使用 TAB 缩进 -->
+    <module name="FileTabCharacter">
+        <!--<property name="severity" value="error"/>-->
+        <property name="eachLine" value="true"/>
+        <message key="containsTab" value="本行包含 TAB 字符"/>
+    </module>
+
+    <module name="TreeWalker">
+
+        <!-- region Skip check keyword -->
+        <module name="SuppressionCommentFilter">
+            <property name="offCommentFormat" value="CSOFF: ALMOST_ALL"/>
+            <property name="onCommentFormat" value="CSON: ALMOST_ALL"/>
+            <property name="checkFormat" value="^((?!(FileTabCharacterCheck)).)*$"/>
+        </module>
+
+        <module name="SuppressionCommentFilter">
+            <property name="offCommentFormat" value="CSOFF\: ([\w\|]+)"/>
+            <property name="onCommentFormat" value="CSON\: ([\w\|]+)"/>
+            <property name="checkFormat" value="$1"/>
+        </module>
+
+        <!-- endregion -->
+
+
+        <!-- region Coding -->
+
+        <!--- 字符串比较必须使用 equals() -->
+        <module name="StringLiteralEquality"/>
+
+        <!-- if-else 嵌套语句最多 3 层 -->
+        <module name="NestedIfDepth">
+            <property name="max" value="3"/>
+        </module>
+
+        <!-- try-catch 嵌套语句最多 2 层 -->
+        <module name="NestedTryDepth">
+            <property name="max" value="2"/>
+        </module>
+
+
+        <!-- 检查过度复杂的 boolean 表达式  -->
+        <!-- See: http://checkstyle.sourceforge.net/config_coding.html#SimplifyBooleanExpression -->
+        <module name="SimplifyBooleanExpression"/>
+
+        <!-- 检查是否有过于复杂的布尔类型 return 语句 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_coding.html#SimplifyBooleanReturn -->
+        <module name="SimplifyBooleanReturn"/>
+
+        <!-- 每行只允许一条语句 -->
+        <!-- See: See：http://checkstyle.sourceforge.net/config_coding.html#OneStatementPerLine -->
+        <module name="OneStatementPerLine"/>
+
+        <!-- 每一行只能定义一个变量 -->
+        <!-- See：http://checkstyle.sourceforge.net/config_coding.html#MultipleVariableDeclarations -->
+        <module name="MultipleVariableDeclarations"/>
+
+        <!-- 缺少 Switch 语句的默认分支（default） -->
+        <module name="MissingSwitchDefault"/>
+
+        <!-- 检查switch中case后是否加入了跳出语句，例如：return、break、throw、continue -->
+        <!-- See: http://checkstyle.sourceforge.net/config_coding.html#FallThrough -->
+        <module name="FallThrough"/>
+
+        <!-- 检查重载的方法应该被放在一起 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_coding.html#OverloadMethodsDeclarationOrder -->
+        <module name="OverloadMethodsDeclarationOrder"/>
+
+        <!-- 检查变量声明与第一次使用之间的间距（行数 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_coding.html#VariableDeclarationUsageDistance -->
+        <module name="VariableDeclarationUsageDistance"/>
+
+        <!-- 检查在重写了equals方法后是否重写了hashCode方法 -->
+        <module name="EqualsHashCode"/>
+
+        <!-- 检查是否有不合法的实例化操作，是否使用工厂方法更好 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_coding.html#IllegalInstantiation -->
+        <module name="IllegalInstantiation">
+            <property name="classes" value="java.lang.Boolean"/>
+        </module>
+
+        <!-- 返回个数 -->
+        <module name="ReturnCount">
+            <property name="max" value="5"/>
+            <property name="format" value="^$"/>
+        </module>
+
+        <module name="NoFinalizer"/>
+
+        <!-- endregion -->
+
+
+        <!-- region Blocks -->
+
+        <!-- 检查空代码块，See：http://checkstyle.sourceforge.net/config_blocks.html#EmptyBlock -->
+        <module name="EmptyBlock"/>
+
+        <!-- 检查左大括号的位置 -->
+        <module name="LeftCurly"/>
+
+        <!-- NeedBraces 检查是否应该使用括号的地方没有加括号
+          tokens: 定义检查的类型 -->
+        <module name="NeedBraces"/>
+
+        <!-- 部分右大括号不允许单独一行显示，根据 tokens 定义 -->
+        <module name="RightCurly">
+            <property name="id" value="RightCurlySame"/>
+            <property name="tokens"
+                      value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_DO"/>
+        </module>
+
+        <!-- 部分右大括号允许单独一行显示，根据 tokens 定义 -->
+        <module name="RightCurly">
+            <property name="id" value="RightCurlyAlone"/>
+            <property name="option" value="alone"/>
+            <property name="tokens"
+                      value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT, INSTANCE_INIT"/>
+        </module>
+
+        <!-- 检查通过注释可允许的部分空异常代码块 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_blocks.html#EmptyCatchBlock -->
+        <module name="EmptyCatchBlock">
+            <property name="exceptionVariableName" value="expected"/>
+        </module>
+
+        <!-- endregion -->
+
+
+        <!-- region Naming -->
+
+        <!-- 包名检测 -->
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+            <message key="name.invalidPattern"
+                     value="包名 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <!-- 检查类，接口，枚举和注解的名称规范 -->
+        <module name="TypeName">
+            <property name="format" value="(^[A-Z][a-zA-Z0-9]{0,45}$)"/>
+            <message key="name.invalidPattern"
+                     value="类型名称 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <!-- methods -->
+        <module name="MethodName">
+            <property name="format" value="(^[a-z][a-zA-Z0-9]{0,35}$)"/>
+        </module>
+
+        <!-- static, non-final fields -->
+        <module name="StaticVariableName"/>
+
+        <!-- constants (static,  final fields) -->
+        <module name="ConstantName">
+            <!-- 定义匹配模式适配日志声明时不符合的规范  -->
+            <property name="format" value="^log(ger)?|[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+        </module>
+
+        <module name="LocalFinalVariableName"/>
+
+        <module name="LocalVariableName">
+            <message key="name.invalidPattern"
+                     value="局部变量名称 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <!-- parameters -->
+        <module name="ParameterName">
+            <property name="format" value="(^[a-z][a-zA-Z0-9]{0,20}$)"/>
+            <message key="name.invalidPattern"
+                     value="参数名称 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <module name="ClassTypeParameterName">
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="name.invalidPattern"
+                     value="类参数类型名称 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <module name="MethodTypeParameterName">
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="name.invalidPattern"
+                     value="方法参数类型名称 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <module name="InterfaceTypeParameterName">
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="name.invalidPattern"
+                     value="接口参数类型名称 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <!-- non-static fields -->
+        <module name="MemberName">
+            <property name="format" value="(^[a-z][a-z0-9][a-zA-Z0-9]{0,30}$)"/>
+            <message key="name.invalidPattern"
+                     value="成员名称 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <!-- 检查异常参数的名称 -->
+        <module name="CatchParameterName">
+            <property name="format" value="^(e|t|ex|[a-z][a-z][a-zA-Z0-9]+)$"/>
+            <message key="name.invalidPattern"
+                     value="异常参数 ''{0}'' 必须匹配模式 ''{1}''."/>
+        </module>
+
+        <!-- 命名缩写允许的连续大写字母长度 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_naming.html#AbbreviationAsWordInName -->
+        <module name="AbbreviationAsWordInName">
+            <property name="ignoreFinal" value="false"/>
+            <property name="allowedAbbreviationLength" value="1"/>
+        </module>
+
+        <!-- endregion -->
+
+
+        <!-- region Imports -->
+
+        <!-- 必须导入类的完整路径，即不能使用*导入所需的类 -->
+        <module name="AvoidStarImport"/>
+
+        <!-- 检查是否从非法的包中导入了类 illegalPkgs: 定义非法的包名称-->
+        <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
+
+        <!-- 检查是否导入了不必显示导入的类-->
+        <module name="RedundantImport"/>
+
+        <!-- 检查是否导入的包没有使用-->
+        <module name="UnusedImports"/>
+
+        <!-- 检查包导入的顺序 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_imports.html#CustomImportOrder -->
+        <module name="CustomImportOrder">
+            <property name="customImportOrderRules" value="STATIC###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE"/>
+            <property name="specialImportsRegExp" value="^com\.hanboard\."/>
+            <!-- <property name="thirdPartyPackageRegExp" value="^(com|net|org)\."/> -->
+            <property name="standardPackageRegExp" value="^(java|javax)\."/>
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+            <property name="separateLineBetweenGroups" value="true"/>
+        </module>
+
+        <!-- endregion -->
+
+
+        <!-- region Design -->
+
+        <!-- 只允许存在一个顶级类 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_design.html#OneTopLevelClass -->
+        <module name="OneTopLevelClass"/>
+
+        <!-- 检查一个只有私有构造器的类是否被声明为 final -->
+        <!-- See: http://checkstyle.sourceforge.net/config_design.html#FinalClass -->
+        <!-- 使用 PMD 的规则 ClassWithOnlyPrivateConstructorsShouldBeFinal -->
+        <!-- <module name="FinalClass"/> -->
+
+        <!-- 确保工具类（在 API 中只有静态方法和字段的类）没有任何公有构造器 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_design.html#HideUtilityClassConstructor -->
+        <!-- 使用 PMD 的规则 UseUtilityClass -->
+        <!-- <module name="HideUtilityClassConstructor"/> -->
+
+        <!-- 检查类成员属性可见性，只有 static final 修饰的成员可以是公有的，其他的成员属性必需是private的 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_design.html#VisibilityModifier -->
+        <module name="VisibilityModifier"/>
+
+        <!-- endregion -->
+
+
+        <!-- region Sizes -->
+
+        <!-- 每行字符数 -->
+        <module name="LineLength">
+            <property name="max" value="100"/>
+            <property name="ignorePattern"
+                      value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+        </module>
+
+        <!-- Checks for long methods and constructors. max default 150行 -->
+        <!-- 检查方法长度，最大 60 行 -->
+        <module name="MethodLength">
+            <!-- 统计时是否包括空行和以//开始的注释,缺省为统计(true)-->
+            <property name="countEmpty" value="false"/>
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="60"/>
+        </module>
+
+        <!-- Checks the number of parameters of a method or constructor. max default 7个. -->
+        <!-- 检查方法或构造函数的参数个数最大 15 个，默认 7 个 -->
+        <module name="ParameterNumber">
+            <property name="max" value="15"/>
+        </module>
+
+        <!-- endregion -->
+
+
+        <!-- region Whitespace -->
+
+        <!-- 限制语句是否可以换行，默认 tokens: PACKAGE_DEF, IMPORT, STATIC_IMPORT. -->
+        <!-- See: http://checkstyle.sourceforge.net/config_whitespace.html#NoLineWrap -->
+        <module name="NoLineWrap"/>
+
+        <!-- 规范关键字前后的空格格式 -->
+        <module name="WhitespaceAround">
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+            <property name="allowEmptyTypes" value="true"/>
+            <property name="allowEmptyLoops" value="true"/>
+            <message key="ws.notPreceded" value="''{0}'' 关键字前少一个空格"/>
+            <message key="ws.notFollowed" value="''{0}'' 关键字后少一个空格"/>
+        </module>
+
+        <!-- 规范泛型的空格格式 -->
+        <module name="GenericWhitespace">
+            <message key="ws.followed"
+                     value="GenericWhitespace ''{0}'' is followed by whitespace."/>
+            <message key="ws.preceded"
+                     value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
+            <message key="ws.illegalFollow"
+                     value="GenericWhitespace ''{0}'' should followed by whitespace."/>
+            <message key="ws.notPreceded"
+                     value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
+        </module>
+
+        <!-- 检查方法参数填充符 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_whitespace.html#MethodParamPad -->
+        <module name="MethodParamPad"/>
+
+        <!-- 检查指定标记之前没有空格 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_whitespace.html#NoWhitespaceBefore -->
+        <module name="NoWhitespaceBefore">
+            <property name="tokens"
+                      value="COMMA, SEMI, POST_INC, POST_DEC, DOT, ELLIPSIS, METHOD_REF"/>
+            <property name="allowLineBreaks" value="true"/>
+        </module>
+
+        <!-- 检查小括号的填充规则，即左括号后和右括号前都不允许有空格 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_whitespace.html#ParenPad -->
+        <module name="ParenPad"/>
+
+        <!-- 运算符换行，代码自动换行时运算符所在的位置，NL 必须在新行中，EOL 必须在当前行末尾 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_whitespace.html#OperatorWrap -->
+        <module name="OperatorWrap">
+            <property name="option" value="NL"/>
+            <property name="tokens"
+                      value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE,
+                      LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS,
+                      QUESTION, SL, SR, STAR, METHOD_REF "/>
+        </module>
+
+        <!-- 部分语句需要空行分隔，tokens 默认值：PACKAGE_DEF, IMPORT, CLASS_DEF, INTERFACE_DEF,
+            ENUM_DEF, STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF -->
+        <!-- See：http://checkstyle.sourceforge.net/config_whitespace.html#EmptyLineSeparator -->
+        <module name="EmptyLineSeparator">
+            <!-- 字段之间可以不空行 -->
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+        </module>
+
+        <!-- 以「点」换行时「点」应该在新行的开头 -->
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapDot"/>
+            <property name="tokens" value="DOT"/>
+            <property name="option" value="nl"/>
+        </module>
+        <!-- 以「逗号」换行时「逗号」应该在上一行的结尾 -->
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapComma"/>
+            <property name="tokens" value="COMMA"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/258 -->
+            <property name="id" value="SeparatorWrapEllipsis"/>
+            <property name="tokens" value="ELLIPSIS"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/259 -->
+            <property name="id" value="SeparatorWrapArrayDeclarator"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapMethodRef"/>
+            <property name="tokens" value="METHOD_REF"/>
+            <property name="option" value="nl"/>
+        </module>
+        <!-- endregion -->
+
+
+        <!-- region Annotation -->
+        <!-- See: http://checkstyle.sourceforge.net/config_annotation.html#AnnotationLocation -->
+        <module name="AnnotationLocation">
+            <property name="id" value="AnnotationLocationMostCases"/>
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>
+        </module>
+        <module name="AnnotationLocation">
+            <property name="id" value="AnnotationLocationVariables"/>
+            <property name="tokens" value="VARIABLE_DEF"/>
+            <property name="allowSamelineMultipleAnnotations" value="true"/>
+        </module>
+        <!-- endregion -->
+
+
+        <!-- region Modifier -->
+        <!-- ModifierOrder 检查修饰符的顺序，默认是
+        public,protected,private,abstract,static,final,transient,volatile,synchronized,native -->
+        <module name="ModifierOrder"/>
+
+        <!-- 检查是否有多余的修饰符，例如：接口中的方法不必使用public、abstract修饰  -->
+        <module name="RedundantModifier"/>
+
+        <!-- endregion -->
+
+
+        <!-- region Javadoc -->
+
+        <!-- 检查类和接口的 javadoc -->
+        <!-- See: http://checkstyle.sourceforge.net/config_javadoc.html#JavadocType -->
+        <module name="JavadocType">
+            <!-- 检查author标签的格式 -->
+            <property name="authorFormat" value="\S"/>
+            <property name="scope" value="private"/>
+        </module>
+
+        <!-- 检查类变量的注释 -->
+        <module name="JavadocVariable">
+            <property name="scope" value="protected"/>
+        </module>
+
+        <!-- 检查 javadoc 后面的标签是否有注释 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_javadoc.html#NonEmptyAtclauseDescription -->
+        <module name="NonEmptyAtclauseDescription"/>
+
+        <!-- See: http://checkstyle.sourceforge.net/config_javadoc.html#JavadocTagContinuationIndentation -->
+        <module name="JavadocTagContinuationIndentation"/>
+
+        <!-- 检查是否存在概述的注释 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_javadoc.html#SummaryJavadoc -->
+        <module name="SummaryJavadoc">
+            <property name="period" value=""/>
+        </module>
+
+        <!-- 文档注释段落，See: http://checkstyle.sourceforge.net/config_javadoc.html#JavadocParagraph -->
+        <module name="JavadocParagraph"/>
+
+        <!-- 检查文档标签顺序，See: http://checkstyle.sourceforge.net/config_javadoc.html#AtclauseOrder -->
+        <module name="AtclauseOrder">
+            <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
+            <property name="target"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+        </module>
+
+        <!-- 检查方法的javadoc的注释 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_javadoc.html#JavadocMethod -->
+        <module name="JavadocMethod">
+            <property name="scope" value="protected"/>
+            <property name="allowUndeclaredRTE" value="true"/>
+            <property name="allowThrowsTagsForSubclasses" value="true"/>
+            <!--允许get set 方法没有注释-->
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+        </module>
+
+        <!-- See: http://checkstyle.sourceforge.net/config_javadoc.html#JavadocMethod -->
+        <module name="SingleLineJavadoc">
+            <property name="ignoreInlineTags" value="false"/>
+        </module>
+
+        <!-- endregion -->
+
+
+        <!-- region Misc -->
+
+        <!-- 代码缩进，See: http://checkstyle.sourceforge.net/config_misc.html#Indentation -->
+        <module name="Indentation"/>
+
+        <!-- 检查数组定义的风格，See: http://checkstyle.sourceforge.net/config_misc.html#ArrayTypeStyle -->
+        <module name="ArrayTypeStyle"/>
+
+        <!-- 检查在定义 long 类型时使用大写 L 而不是小写 l，因为小写 l 与数字 1 很相似 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_misc.html#UpperEll -->
+        <module name="UpperEll"/>
+
+        <!-- 检查注释与周围代码的缩进 -->
+        <!-- See: http://checkstyle.sourceforge.net/config_misc.html#CommentsIndentation -->
+        <module name="CommentsIndentation"/>
+
+        <!-- endregion -->
+
+    </module>
+
+</module>

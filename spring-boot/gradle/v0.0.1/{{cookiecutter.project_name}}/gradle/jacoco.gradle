@@ -1,0 +1,12 @@
+apply plugin: 'jacoco'
+
+jacoco {
+
+    println "Jacoco Version: $toolVersion"
+}
+
+test {
+    jacoco {
+        append = false
+    }
+}

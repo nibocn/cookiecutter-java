@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id "org.springframework.boot" version "{{ cookiecutter.spring_boot_version }}"
+}
+
+apply plugin: 'io.spring.dependency-management'
+{% if cookiecutter.code_quality_check == 'yes' and cookiecutter.cvs == 'git' %}
+apply from: "gradle/install-git-hooks.gradle"
+{%- endif %}
+{%- if cookiecutter.code_quality_check == 'yes' %}
+apply from: "gradle/pmd.gradle"
+apply from: "gradle/checkstyle.gradle"
+apply from: "gradle/findbugs.gradle"
+{%- endif %}
+{%- if cookiecutter.jacoco_plugin == 'yes' %}
+apply from: "gradle/jacoco.gradle"
+{%- endif %}
+
+group = '{{ cookiecutter.group_id }}'
+version = '{{ cookiecutter.version }}'
+sourceCompatibility = {{ cookiecutter.java_version }}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    {%- if cookiecutter.enabled_lombok == 'yes'%}
+    compile 'org.projectlombok:lombok:1.18.2'
+    {%- endif %}
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat 'full'
+    }
+}
+
+idea {
+    module {
+        downloadSources = false
+        downloadJavadoc = false
+    }
+}
+
+eclipse {
+    classpath {
+        downloadSources = false
+    }
+}

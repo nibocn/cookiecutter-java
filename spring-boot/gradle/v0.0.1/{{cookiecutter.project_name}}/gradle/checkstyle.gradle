@@ -1,0 +1,11 @@
+apply plugin: 'checkstyle'
+
+ext.checkstyleDir = "quality/checkstyle"
+
+checkstyle {
+    toolVersion = '8.11'
+    configFile = file("$checkstyleDir/checkstyle.xml")
+    // 构建过程中不显示 Checkstyle 检查出的错误
+    showViolations = false
+    println "Checkstyle Version: ${toolVersion}"
+}
