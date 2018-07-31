@@ -257,8 +257,7 @@
         <!-- See: http://checkstyle.sourceforge.net/config_imports.html#CustomImportOrder -->
         <module name="CustomImportOrder">
             <property name="customImportOrderRules" value="STATIC###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE"/>
-            <property name="specialImportsRegExp" value="^com\.hanboard\."/>
-            <!-- <property name="thirdPartyPackageRegExp" value="^(com|net|org)\."/> -->
+            <property name="thirdPartyPackageRegExp" value="^(com|net|org|io|me)\."/>
             <property name="standardPackageRegExp" value="^(java|javax)\."/>
             <property name="sortImportsInGroupAlphabetically" value="true"/>
             <property name="separateLineBetweenGroups" value="true"/>
