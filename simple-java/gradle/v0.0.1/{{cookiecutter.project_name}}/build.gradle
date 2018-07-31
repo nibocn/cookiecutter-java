@@ -15,6 +15,10 @@ apply from: "gradle/findbugs.gradle"
 apply from: "gradle/jacoco.gradle"
 {%- endif %}
 
+group = '{{ cookiecutter.group_id }}'
+version = '{{ cookiecutter.version }}'
+sourceCompatibility = {{ cookiecutter.java_version }}
+
 repositories {
     jcenter()
 }
