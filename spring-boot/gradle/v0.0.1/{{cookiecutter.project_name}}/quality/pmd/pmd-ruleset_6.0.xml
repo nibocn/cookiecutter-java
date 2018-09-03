@@ -103,14 +103,16 @@
     <!-- 有些循环可以简化成 while 循环 -->
     <rule ref="category/java/codestyle.xml/ForLoopShouldBeWhileLoop"/>
 
-    <!-- 检查抽象类的名称，必须以 Abstract 开头 -->
-    <rule ref="category/java/codestyle.xml/AbstractNaming"/>
     <!-- 避免在变量/方法/类/接口中使用 $ 符号 -->
     <rule ref="category/java/codestyle.xml/AvoidDollarSigns"/>
     <!-- Boolean 类型的方法名称不要使用 get 前缀 -->
     <!--<rule ref="category/java/codestyle.xml/BooleanGetMethodName"/>-->
-    <!-- 类名必须以大写字母开头 -->
-    <rule ref="category/java/codestyle.xml/ClassNamingConventions"/>
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <property name="abstractClassPattern" value="Abstract[A-Z]\w+"/>
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]+(Utils?|Helper)"/>
+        </properties>
+    </rule>
     <!-- 对于泛型值引用的名称应该只限于一个大写字母 -->
     <rule ref="category/java/codestyle.xml/GenericsNaming"/>
     <!-- 方法名始终以小写字母开头，并且不能包含下划线 -->
@@ -146,15 +148,8 @@
     <rule ref="category/java/codestyle.xml/DuplicateImports"/>
     <!-- 部分情况下导入类使用完全的包名路径是没有必要的 -->
     <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName"/>
-
-    <!-- for 循环语句中要使用大括号，应避免直接使用缩进来表示 -->
-    <rule ref="category/java/codestyle.xml/ForLoopsMustUseBraces"/>
-    <!-- if 语句块必须使用大括号 -->
-    <rule ref="category/java/codestyle.xml/IfStmtsMustUseBraces"/>
-    <!-- if else 语句块必须使用大括号 -->
-    <rule ref="category/java/codestyle.xml/IfElseStmtsMustUseBraces"/>
-    <!-- while 循环必须带大括号 -->
-    <rule ref="category/java/codestyle.xml/WhileLoopsMustUseBraces"/>
+    <!-- https://pmd.github.io/pmd-6.6.0/pmd_rules_java_codestyle.html#controlstatementbraces -->
+    <rule ref="category/java/codestyle.xml/ControlStatementBraces"/>
 
     <!-- 只赋值一次的局部变量可以声明为 final -->
     <!--<rule ref="category/java/codestyle.xml/LocalVariableCouldBeFinal"/>-->
