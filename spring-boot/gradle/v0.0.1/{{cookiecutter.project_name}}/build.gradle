@@ -10,9 +10,7 @@ apply plugin: 'io.spring.dependency-management'
 apply from: "gradle/install-git-hooks.gradle"
 {%- endif %}
 {%- if cookiecutter.code_quality_check == 'yes' %}
-apply from: "gradle/pmd.gradle"
-apply from: "gradle/checkstyle.gradle"
-apply from: "gradle/findbugs.gradle"
+apply from: 'gradle/code-quality.gradle'
 {%- endif %}
 {%- if cookiecutter.jacoco_plugin == 'yes' %}
 apply from: "gradle/jacoco.gradle"

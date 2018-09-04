@@ -1,0 +1,7 @@
+apply from: "$rootDir/gradle/checkstyle.gradle"
+apply from: "$rootDir/gradle/pmd.gradle"
+apply from: "$rootDir/gradle/findbugs.gradle"
+apply from: "$rootDir/gradle/jacoco.gradle"
+
+checkstyleMain.finalizedBy pmdMain, findbugsMain
+checkstyleTest.finalizedBy pmdTest, findbugsTest
