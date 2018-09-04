@@ -21,7 +21,8 @@ gradle.taskGraph.afterTask { Task task, TaskState state ->
         // region 生成 HTML 报告
         if (file("$buildDir/reports/findbugs/${findbugsType}.xml").exists()) {
             def htmlReportPath = "$buildDir/reports/findbugs/${findbugsType}.html"
-            ant.xslt(in: "$buildDir/reports/findbugs/${findbugsType}.xml",
+            ant.xslt(
+                in: "$buildDir/reports/findbugs/${findbugsType}.xml",
                 style: "$findbugsDir/fancy-hist.xsl",
                 out: htmlReportPath
             )
