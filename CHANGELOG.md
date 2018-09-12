@@ -1,5 +1,15 @@
-<a name=""></a>
-#  (2018-09-12)
+<a name="0.0.2"></a>
+## [0.0.2](https://github.com/nibocn/cookiecutter-java/compare/v0.0.1...v0.0.2) (2018-09-12)
+
+
+### Bug Fixes
+
+* 移除 jacoco 脚本重复的引用 ([a968c83](https://github.com/nibocn/cookiecutter-java/commit/a968c83))
+
+
+
+<a name="0.0.1"></a>
+## [0.0.1](https://github.com/nibocn/cookiecutter-java/compare/fd54698...v0.0.1) (2018-09-12)
 
 
 ### Bug Fixes

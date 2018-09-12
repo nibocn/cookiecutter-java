@@ -1,0 +1,22 @@
+{
+  "name": "cookiecutter-java",
+  "version": "0.0.2",
+  "description": "通过 Cookiecutter 生成 Java 项目模板",
+  "scripts": {
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nibocn/cookiecutter-java.git"
+  },
+  "keywords": [
+    "cookiecutter",
+    "cookiecutter-java"
+  ],
+  "author": "NiBo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nibocn/cookiecutter-java/issues"
+  },
+  "homepage": "https://github.com/nibocn/cookiecutter-java#readme"
+}
