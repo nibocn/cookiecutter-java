@@ -1,6 +1,6 @@
 apply plugin: 'findbugs'
 
-ext.findbugsDir = "quality/findbugs"
+ext.findbugsDir = "$rootDir/quality/findbugs"
 
 findbugs {
     includeFilter = file("$findbugsDir/findbugs-include-filter.xml")

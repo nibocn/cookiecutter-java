@@ -1,6 +1,6 @@
 apply plugin: 'pmd'
 
-ext.pmdDir = "quality/pmd"
+ext.pmdDir = "$rootDir/quality/pmd"
 
 pmd {
     toolVersion = '6.6.0'

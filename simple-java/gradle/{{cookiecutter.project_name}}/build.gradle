@@ -4,13 +4,13 @@ plugins {
     id 'eclipse'
 }
 {% if cookiecutter.code_quality_check == 'yes' and cookiecutter.cvs == 'git' %}
-apply from: "gradle/install-git-hooks.gradle"
+apply from: "$rootDir/scripts/install-git-hooks.gradle"
 {%- endif %}
 {%- if cookiecutter.code_quality_check == 'yes' %}
-apply from: 'gradle/code-quality.gradle'
+apply from: "$rootDir/scripts/code-quality.gradle"
 {%- endif %}
 {%- if cookiecutter.jacoco_plugin == 'yes' %}
-apply from: "gradle/jacoco.gradle"
+apply from: "$rootDir/scripts/jacoco.gradle"
 {%- endif %}
 
 group = '{{ cookiecutter.group_id }}'
