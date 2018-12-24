@@ -11,7 +11,7 @@
   "cvs": ["git", "no"],
   "code_quality_check": ["yes", "no"],
   "jacoco_plugin": ["yes", "no"],
-  "enabled_lombok": ["no", "yes"],
+  "enabled_lombok": ["yes", "no"],
   "_copy_without_render": [
     ".jar",
     "gradlew",
