@@ -41,6 +41,10 @@ tasks.withType(Test) {
     }
 }
 
+bootRun {
+    systemProperties System.properties
+}
+
 idea {
     module {
         downloadSources = false
