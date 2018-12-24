@@ -3,7 +3,6 @@ apply plugin: 'pmd'
 ext.pmdDir = "$rootDir/quality/pmd"
 
 pmd {
-    toolVersion = '6.6.0'
     ruleSets = []
     ruleSetFiles = files("$pmdDir/pmd-ruleset_6.0.xml")
     println "PMD Version: ${toolVersion}"
