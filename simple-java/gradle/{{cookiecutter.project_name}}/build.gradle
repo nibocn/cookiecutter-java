@@ -22,13 +22,13 @@ repositories {
 }
 
 dependencies {
-    compile 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
     {%- if cookiecutter.enabled_lombok == 'yes'%}
     compileOnly 'org.projectlombok:lombok:1.18.2'
     annotationProcessor("org.projectlombok:lombok:1.18.2")
     {%- endif %}
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
 tasks.withType(Test) {
