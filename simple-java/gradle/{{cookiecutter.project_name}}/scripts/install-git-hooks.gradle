@@ -1,6 +1,10 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 task gitExecutableHooks() {
     doLast {
-        Runtime.getRuntime().exec("chmod -R +x .git/hooks/")
+        if (!Os.isFamily(Os.FAMILY_WINDOWS)) {
+            Runtime.getRuntime().exec("chmod -R +x .git/hooks/")
+        }
     }
 }
 task installGitHooks(type: Copy) {
