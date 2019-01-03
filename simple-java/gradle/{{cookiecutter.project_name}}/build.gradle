@@ -18,6 +18,8 @@ version = '{{ cookiecutter.version }}'
 sourceCompatibility = {{ cookiecutter.java_version }}
 
 repositories {
+    mavenLocal()
+    mavenCentral()
     jcenter()
 }
 
